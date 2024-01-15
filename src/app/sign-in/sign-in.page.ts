@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { getAuth, RecaptchaVerifier } from 'firebase/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,11 +10,11 @@ import { getAuth, RecaptchaVerifier } from 'firebase/auth';
 })
 export class SignInPage implements OnInit {
 
-  phoneNumber = "+36303236954"
+  phoneNumber = "+36703086906"
   code = '111111'
   recaptchaInvisible:any
 
-  constructor(private auth:AuthService) { }
+  constructor(private auth:AuthService, private router:Router) { }
 
   ionViewDidEnter(){
     this.recaptchaInvisible = new RecaptchaVerifier(
@@ -47,6 +48,7 @@ export class SignInPage implements OnInit {
     this.auth.verificationCode(this.code).then(
       (user:any) => {
         console.log("User", user)
+        this.router.navigate(['/home'])
       }
     ).catch(
       (error:any) => {
