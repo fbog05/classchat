@@ -9,7 +9,7 @@ import { getAuth, RecaptchaVerifier } from 'firebase/auth';
 })
 export class SignInPage implements OnInit {
 
-  phoneNumber = "+36703086906"
+  phoneNumber = "+36303236954"
   code = '111111'
   recaptchaInvisible:any
 
@@ -34,13 +34,26 @@ export class SignInPage implements OnInit {
     this.auth.signInWithPhone(this.phoneNumber, this.recaptchaInvisible).then(
       () => {
         //Kód bekér
-        this.auth.verificationCode(this.code).then(
-          (user:any) => {
-            console.log("User")
-          }
-        )
+        console.log("SMS elküldve")
+      }
+    ).catch(
+      (error:any) => {
+        console.log("error: ", error)
       }
     )
   }
 
+  verificationCode(){
+    this.auth.verificationCode(this.code).then(
+      (user:any) => {
+        console.log("User", user)
+      }
+    ).catch(
+      (error:any) => {
+        console.log("Code hiba!")
+      }
+    )
+  }
 }
+
+
